@@ -1,19 +1,31 @@
 body {
     overflow: hidden;
 }
+
+#player {
+    z-index: 3;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    width: 10px;
+    height: 20px;
+    background-color: purple;
+    border-radius: 12px;
+}
 #mapContainer {
+    z-index: 1;
     position: relative;
     width: 2500px;
-    /* height: calc(100vh - 65px); */
     height: 2500px;
     overflow: hidden;
     background-color: black;
 }
 
 #map {
+    z-index: 2;
     position: absolute;
-    left: -1500px;
-    top: -1500px;
+    left: -1250px;
+    top: -1250px;
     width: 2500px;
     height: 2500px;
     background-image: url("../assets/maptest.png");
