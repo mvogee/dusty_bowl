@@ -1,9 +1,15 @@
 const map = document.querySelector("#map");
 const player = document.querySelector("#player");
+const interval = setInterval(gameFrame, 25);
+
+window.addEventListener("keydown", keyDownHandler);
+window.addEventListener("keyup", keyUpHandler);
+
 const MAXTOP = 0;
 const MINTOP = -2500 + window.innerHeight / 2;
 const MAXLEFT = 0;
 const MINLEFT = -2500 + window.innerWidth / 2;
+const MOVESPEED = 5;
 
 let keyUp = false;
 let keyDown = false;
@@ -16,10 +22,8 @@ function rotatePlayer() {
   } else if ((keyLeft && keyUp) || (keyRight && keyDown)) {
     player.style.transform = "rotate(-45deg)";
   } else if (keyLeft || keyRight) {
-    console.log("rotate(90)");
     player.style.transform = "rotate(90deg)";
   } else if (keyUp || keyDown) {
-    console.log("rotate(0)");
     player.style.transform = "rotate(0deg)";
   }
 }
@@ -29,16 +33,16 @@ function move() {
   let left = Number(styles.left.slice(0, styles.left.length - 2));
   let top = Number(styles.top.slice(0, styles.top.length - 2));
   if (keyUp && top < MAXTOP) {
-    top = top + 5;
+    top = top + MOVESPEED;
   }
   if (keyDown && top > MINTOP) {
-    top = top - 5;
+    top = top - MOVESPEED;
   }
   if (keyRight && left > MINLEFT) {
-    left = left - 5;
+    left = left - MOVESPEED;
   }
   if (keyLeft && left < MAXLEFT) {
-    left = left + 5;
+    left = left + MOVESPEED;
   }
   map.style.left = left + "px";
   map.style.top = top + "px";
@@ -59,13 +63,12 @@ function keyDownHandler(event) {
     case 87: //w
       keyUp = true;
       break;
+    case 27:
+      clearInterval(interval);
   }
-  move();
-  rotatePlayer();
 }
 function keyUpHandler(event) {
   const keyCode = event.keyCode;
-  console.log("keyCode up", keyCode);
   switch (keyCode) {
     case 68: //d
       keyRight = false;
@@ -82,5 +85,11 @@ function keyUpHandler(event) {
   }
 }
 
-window.addEventListener("keydown", keyDownHandler);
-window.addEventListener("keyup", keyUpHandler);
+function playerActions() {
+  move();
+  rotatePlayer();
+}
+
+function gameFrame() {
+  playerActions();
+}

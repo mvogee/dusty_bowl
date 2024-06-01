@@ -26,7 +26,6 @@ body {
     position: absolute;
     left: -1250px;
     top: -1250px;
-    width: 2500px;
-    height: 2500px;
-    background-image: url("../assets/maptest.png");
+    /* width: 2500px;
+    height: 2500px; */
 }
